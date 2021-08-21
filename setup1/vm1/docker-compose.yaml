@@ -1,7 +1,7 @@
 version: "2"
 
 networks:
-  test:
+  artifacts_test:
 
 services:
   # ca-org1:
@@ -23,7 +23,7 @@ services:
   #   container_name: ca.org1.example.com
   #   hostname: ca.org1.example.com
   #   networks:
-  #     - test
+  #     - artifacts_test
 
 
   couchdb0:
@@ -35,7 +35,7 @@ services:
     ports:
       - 5984:5984
     networks:
-      - test
+      - artifacts_test
 
   couchdb1:
     container_name: couchdb1
@@ -46,7 +46,7 @@ services:
     ports:
       - 6984:5984
     networks:
-      - test
+      - artifacts_test
 
   peer0.org1.example.com:
     container_name: peer0.org1.example.com
@@ -58,7 +58,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=DEBUG
       - CORE_PEER_LOCALMSPID=Org1MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_artifacts_test
 
       - CORE_PEER_ID=peer0.org1.example.com
       - CORE_PEER_ADDRESS=peer0.org1.example.com:7051
@@ -92,7 +92,7 @@ services:
       - /var/run/:/host/var/run/
       - ./:/etc/hyperledger/channel/
     networks:
-      - test
+      - artifacts_test
 
   peer1.org1.example.com:
     container_name: peer1.org1.example.com
@@ -104,7 +104,7 @@ services:
       - ORDERER_GENERAL_LOGLEVEL=debug
       - CORE_PEER_LOCALMSPID=Org1MSP
 
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_test
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=artifacts_artifacts_test
 
       - CORE_PEER_ID=peer1.org1.example.com
       - CORE_PEER_ADDRESS=peer1.org1.example.com:8051
@@ -134,11 +134,11 @@ services:
       - /var/run/:/host/var/run/
       - ./:/etc/hyperledger/channel/
     networks:
-      - test
+      - artifacts_test
 
   cli:
     container_name: cli
-    image: hyperledger/fabric-tools
+    image: hyperledger/fabric-tools:2.0.0
     tty: true
     environment:
       - GOPATH=/opt/gopath
@@ -159,7 +159,7 @@ services:
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: /bin/bash
     networks:
-      - test
+      - artifacts_test
     volumes:
       - /var/run/:/host/var/run/
       # - ./crypto-config:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/

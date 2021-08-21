@@ -1,7 +1,7 @@
 version: '2'
 
 networks:
-  test:
+  artifacts_test:
 
 services:
 
@@ -20,4 +20,4 @@ services:
     container_name: ca.org1.example.com
     hostname: ca.org1.example.com
     networks:
-      - test
+      - artifacts_test
